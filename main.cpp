@@ -85,7 +85,7 @@ public:
         temp->next = newNode;
     }
 
-    void delete_node(int value) {
+    void delete_val(int value) {
         if (!head) return; // Empty list
 
         Node* temp = head;
@@ -139,13 +139,24 @@ public:
         delete temp;
     }
 
-    // Delete head, reassign head pointer, return data value
+    // Delete head, reassign head pointer and prev, return data value
     int pop_front(){
-        // if (!head) throw underflow_error("Trying to pop from empty list"); // Empty list
+        if (!head) throw underflow_error("Trying to pop from empty list"); // Empty list
         int data = head->data;
         Node* temp = head;
         head = head->next; // Reassign head and delete
         head->prev = nullptr;
+        delete temp;
+        return data;
+    }
+
+    // Delete tail, reassign tail pointer and next, return data value
+    int pop_back(){
+        if (!tail) throw underflow_error("Trying to pop from empty list"); // Empty list
+        int data = tail->data;
+        Node* temp = tail;
+        tail = tail->prev; // Reassign head and delete
+        tail->next = nullptr;
         delete temp;
         return data;
     }
@@ -195,7 +206,28 @@ int main() {
     list.delete_pos(2);
 
     // Test popping the head node
-    cout << "Popping head value: " << list.pop_front() << endl;
+    cout << "Popping head value: ";
+    try
+    {
+        cout << list.pop_front();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+    cout << endl;    
+
+    // Test popping the tail node
+    cout << "Popping tail value: ";
+    try
+    {
+        cout << list.pop_back();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+    cout << endl;  
 
     cout << "List backward: ";
     list.print_reverse();
