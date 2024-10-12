@@ -139,11 +139,14 @@ public:
         delete temp;
     }
 
-    Node* pop_front(){
+    // Delete head, reassign head pointer, return data value
+    int pop_front(){
         if (!head) return; // Empty list
         Node* temp = head;
-        head = head->next;
-        return temp;
+        int data = temp->data;
+        head = head->next; // Reassign head and delete
+        delete temp;
+        return data;
     }
 
     void print() {
@@ -188,6 +191,9 @@ int main() {
 
     // Test delete index method
     list.delete_pos(11);
+
+    // Test popping the head node
+    cout << "Popping head value: " << list.pop_front() << endl;
 
     cout << "List backward: ";
     list.print_reverse();
