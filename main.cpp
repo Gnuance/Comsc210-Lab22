@@ -7,6 +7,10 @@
         4. Update the current delete() method to a better name, delete_val(). Keep the functionality in the method that will still delete the head node,
             even though the new pop_front() method will also do that. This is fine to code both, for the purposes of class completeness.
         5. Write a driver that fully exercises these changes made to the class.
+
+    Design decisions:
+        1. Regarding item 4 above, I didn't find a delete() method, but I did find delete_node() which is what I think was being referred to. That was changed
+            to delete_val() and a prompt was created in main to get an integer value from user to delete the referenced node.
 */
 
 #include <iostream>
