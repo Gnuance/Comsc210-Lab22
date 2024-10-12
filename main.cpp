@@ -139,6 +139,13 @@ public:
         delete temp;
     }
 
+    Node* pop_front(){
+        if (!head) return; // Empty list
+        Node* temp = head;
+        head = head->next;
+        return temp;
+    }
+
     void print() {
         Node* current = head;
         if (!current) return;
@@ -179,6 +186,9 @@ int main() {
     cout << "List forward: ";
     list.print();
 
+    // Test delete index method
+    list.delete_pos(11);
+
     cout << "List backward: ";
     list.print_reverse();
 
@@ -186,6 +196,7 @@ int main() {
     list.~DoublyLinkedList();
     cout << "List forward: ";
     list.print();
+    cout << endl;
 
     return 0;
 }
