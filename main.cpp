@@ -10,6 +10,7 @@
 */
 
 #include <iostream>
+#include <string> // getline()
 using namespace std;
 
 class DoublyLinkedList {
@@ -85,14 +86,15 @@ public:
         temp->next = newNode;
     }
 
+    // Changed from delete_node. I think this is the method referenced in requirement 4
     void delete_val(int value) {
-        if (!head) return; // Empty list
+        if (!head) throw underflow_error("Trying to delete from empty list."); // Empty list
 
         Node* temp = head;
         while (temp && temp->data != value)
             temp = temp->next;
 
-        if (!temp) return; // Value not found
+        if (!temp) throw invalid_argument("Item not found in list."); // Value not found
 
         if (temp->prev) {
             temp->prev->next = temp->next;
@@ -141,7 +143,7 @@ public:
 
     // Delete head, reassign head pointer and prev, return data value
     int pop_front(){
-        if (!head) throw underflow_error("Trying to pop from empty list"); // Empty list
+        if (!head) throw underflow_error("Trying to pop from empty list."); // Empty list
         int data = head->data;
         Node* temp = head;
         head = head->next; // Reassign head and delete
@@ -152,7 +154,7 @@ public:
 
     // Delete tail, reassign tail pointer and next, return data value
     int pop_back(){
-        if (!tail) throw underflow_error("Trying to pop from empty list"); // Empty list
+        if (!tail) throw underflow_error("Trying to pop from empty list."); // Empty list
         int data = tail->data;
         Node* temp = tail;
         tail = tail->prev; // Reassign head and delete
@@ -195,6 +197,7 @@ int main() {
     const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
     DoublyLinkedList list;
     int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
+    string userValue = ""; // To collect userinput for value to delete
 
     for (int i = 0; i < size; ++i)
         list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
@@ -222,6 +225,20 @@ int main() {
     try
     {
         cout << list.pop_back();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+    cout << endl;  
+
+    // Get user value to delete
+    cout << "Please enter a value to delete: ";
+    getline(cin, userValue);
+    try
+    {
+        cout << "Attempting to delete: " << userValue;
+        list.delete_val(stoi(userValue));
     }
     catch(const std::exception& e)
     {
