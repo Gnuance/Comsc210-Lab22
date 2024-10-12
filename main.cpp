@@ -141,10 +141,11 @@ public:
 
     // Delete head, reassign head pointer, return data value
     int pop_front(){
-        if (!head) return; // Empty list
+        // if (!head) throw underflow_error("Trying to pop from empty list"); // Empty list
+        int data = head->data;
         Node* temp = head;
-        int data = temp->data;
         head = head->next; // Reassign head and delete
+        head->prev = nullptr;
         delete temp;
         return data;
     }
@@ -190,7 +191,8 @@ int main() {
     list.print();
 
     // Test delete index method
-    list.delete_pos(11);
+    cout << "Deleting index: 2" << endl;
+    list.delete_pos(2);
 
     // Test popping the head node
     cout << "Popping head value: " << list.pop_front() << endl;
