@@ -1,3 +1,13 @@
+/*  Lab 22: Upgrading dll demo to add additional functionality
+    Objectives:        
+        1. Create a method delete_pos() that will delete a node, not by its value, but by position. The method should also cover the case where we want to delete the head or tail node.
+        2. Create a method pop_front(), that will delete the head node.
+        3. Create a method pop_back() that will delete the tail node.
+        4. Update the current delete() method to a better name, delete_val(). Keep the functionality in the method that will still delete the head node,
+            even though the new pop_front() method will also do that. This is fine to code both, for the purposes of class completeness.
+        5. Write a driver that fully exercises these changes made to the class.
+*/
+
 #include <iostream>
 using namespace std;
 
