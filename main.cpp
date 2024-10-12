@@ -11,6 +11,14 @@
     Design decisions:
         1. Regarding item 4 above, I didn't find a delete() method, but I did find delete_node() which is what I think was being referred to. That was changed
             to delete_val() and a prompt was created in main to get an integer value from user to delete the referenced node.
+        2. Assignment didn't specify a return value for the pop methods, so I assumed a return value of the data type as is consistent with pop() functionality
+            where it doesn't merely delete, but also returns the value. IN THIS CASE, the return value SHOULD be type Node, however because Node is private,
+            main is unable to access the Node data structure. Even if a method getNode() was created, main would have no way of referring to the return type
+            since a Node* could not be created in main.
+        3. Try/catch statements were used to handle the pop and delete_val methods in main. delete_val() has no return type, but both pop_front() and pop_back() do.
+            In order to handle a situation where main attempts to pop from an empty list, there would be no return value, and returning a value like 0 or -1 could be
+            deceptive and lead the user to think the value 0 or -1 was actually removed from an empty list. Try/Catch is also beneficial because the delet_val()
+            collects user input as a string and attempts to convert to int with stoi() which could throw invalid_argument().
 */
 
 #include <iostream>
@@ -209,11 +217,11 @@ int main() {
     list.print();
 
     // Test delete index method
-    cout << "Deleting index: 2" << endl;
+    cout << "\tDeleting index: 2" << endl;
     list.delete_pos(2);
 
     // Test popping the head node
-    cout << "Popping head value: ";
+    cout << "\tPopping head value: ";
     try
     {
         cout << list.pop_front();
@@ -225,7 +233,7 @@ int main() {
     cout << endl;    
 
     // Test popping the tail node
-    cout << "Popping tail value: ";
+    cout << "\tPopping tail value: ";
     try
     {
         cout << list.pop_back();
@@ -236,12 +244,12 @@ int main() {
     }
     cout << endl;  
 
-    // Get user value to delete
-    cout << "Please enter a value to delete: ";
+    // Get user value, and attempt to delete
+    cout << "\tPlease enter a value to delete: ";
     getline(cin, userValue);
     try
     {
-        cout << "Attempting to delete: " << userValue;
+        cout << "\tAttempting to delete: " << userValue;
         list.delete_val(stoi(userValue));
     }
     catch(const std::exception& e)
